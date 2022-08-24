@@ -1,6 +1,6 @@
 ### Setup
 
-- Dependent libraries installed by running 'python -m pip install -r requirements.txt'
+- Dependent libraries installed by running `python -m pip install -r requirements.txt`
 - A file named bdsp_config.json need to be filled before running
 - Create the required tables by running the SQL scripts in tables folder on the database being used
 
@@ -24,10 +24,10 @@
 
 ### Run
 
-'''
+```
 python main.py --help
 python main.py # full data sets
 python main.py --differential
-'''
+```
 
 run main.py with full data sets initially, then schedule differentials
