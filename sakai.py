@@ -52,7 +52,7 @@ def create_sakai_site(db_conn_params, params, config, session_id):
 									on this page to continue to this course in Brightspace.</p>
 									<p>&nbsp;</p>
 									<p style='text-align:center'><button><span class='Mrphs-itemTitle'>
-									<a href='https://brocku.brightspace.com/d2l/home/{params[0]}' rel='noopener' target='_blank' 
+									<a href='https://brightspace.brocku.ca/d2l/home/{params[0]}' rel='noopener' target='_blank' 
 									title='Open this course in Brightspace'>Open this course in Brightspace</a></span></button></p></center>"""
 
 			script_proxy.service.addNewSite(session_id, new_site_id, params[1], site_description,
