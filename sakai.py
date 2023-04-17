@@ -4,8 +4,12 @@ import uuid
 from xml.etree import ElementTree as ET
 import logging
 import json
+import datetime
+from datetime import timedelta
 
 CONFIG_LOCATION = 'bsp_config.json'
+today = datetime.datetime.now()
+yesterday = today - timedelta(days = 1)
 
 with open(CONFIG_LOCATION, 'r') as f:
 	config = json.load(f)
@@ -36,8 +40,13 @@ def generate_site_id():
 
 
 def create_sakai_site(db_conn_params, params, config, session_id):
+	
+	if params[5]==None:
+		start_date = yesterday
+	else:
+		start_date = params[5]
 
-	if params[2] == 'False':
+	if params[2] == 'False' or start_date>today:
 		if params[4] != None:
 			script_proxy.service.changeSitePublishStatus(session_id, params[4], False)
 		else:
@@ -159,7 +168,7 @@ def sakai_run(db_conn_params, config, args):
 	bs_term = int(config['bs_term'])
 	with mysql.connector.connect(**db_conn_params) as conn:
 		with conn.cursor(buffered=True) as cur:
-			cur.execute(f"""select o.org_unit_id, o.name, o.is_active, o.code, s.site_id
+			cur.execute(f"""select o.org_unit_id, o.name, o.is_active, o.code, s.site_id, o.start_date, o.end_date
 							from org_units_descendants d
 							left join tmp_org_units o
 							on d.des_org_unit_id = o.org_unit_id
