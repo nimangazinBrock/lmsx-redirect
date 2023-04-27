@@ -128,7 +128,10 @@ def add_remove_users(db_conn_params, session_id, delta = 0, sakai_site_id = "is 
 				if not user:
 					continue
 				if user[1] == 'Enroll':
-					script_proxy.service.addMemberToSiteWithRole(session_id, user[3], user[0], roles[user[2]])
+					try:
+						script_proxy.service.addMemberToSiteWithRole(session_id, user[3], user[0], roles[user[2]])
+					except:
+						parent_logger.info(f"User not found!")
 				else:
 					script_proxy.service.removeMemberFromSite(session_id, user[3], user[0])
 
